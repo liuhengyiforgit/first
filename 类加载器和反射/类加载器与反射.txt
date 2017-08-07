@@ -1,0 +1,95 @@
+﻿一、类加载概述
+概念:类加载通过指定类路径去把.class文件以2进制序列的方式加载到内存中,生成java.lang.Class类的实例(对象)
+关注点:
+什么时候加载?加载几次?
+1)自动加载(在使用类的时候加载)
+1.1)当创建一个类的对象时候
+1.2)当调用一个类的静态方法或访问静态变量
+1.3)当有父子关系时,加载子类必然加载父类
+	
+2)手动加载
+Class.forName("");
+
+注:类加载的过程在程序执行过程中仅会加载一次.
+特别是如果已经自动加载,则手动加载不会去加载
+去哪儿加载
+java.ext.dirs
+sun.boot.class.path
+classpath
+
+谁去加载
+	类加载器(java.lang.ClassLoader)
+
+怎么加载?加载过程中会做什么?
+验证-链接-初始化
+	初始化过程会对一个类中静态代码块以及静态变量的初始化
+加载完毕结果是什么
+	生成java.lang.Class此类的对象		
+public class Class{
+	private String className;
+	private String packageName;
+	private Field[] fields;
+	private Method[] methods;
+	private Constructor constructors;
+	private Class[] inners;
+	...
+}
+
+
+二、类加载器(ClassLoader)
+1)Bootstrap (启动加载器)--有C实现---祖宗类
+主要加载sun.boot.class.path对应路径中的class文件
+
+2)Ext(扩展类加载器)--爷爷类
+主要加载java.ext.dirs对应路径中的class文件
+
+3)app(系统应用加载器)--父类
+主要classpath指定路径中的类文件
+4)自定义类加载--儿子
+
+
+三、java.lang.Class<T>(类型的类)
+如何获取类加载器加载的成果(此类的对象)
+1)自动加载的
+Class<类名> type=类名.class;
+Class<类名> type=类实例.getClass();
+2)手动加载
+Class<?> type=Class.forName("test.A");
+
+
+四、反射(reflect)
+反射:即使用Class类的对象中的信息来做一些事
+
+从Class中获取信息(可以查看Class的API文档了解)：
+获取类名
+getClassName
+
+
+
+获取类的构造器 
+首先介绍一下Constructor类，这个类用来封装反射得到的构造器，Class有四个方法来获得Constructor对象
+public Constructor<?>[] getConstructors() 返回类中所有的public构造器集合，默认构造器的下标为0
+public Constructor<T> getConstructor(Class<?>... parameterTypes) 返回指定public构造器，参数为构造器参数类型集合
+public Constructor<?>[] getDeclaredConstructors() 返回类中所有的构造器，包括私有
+public Constructor<T> getDeclaredConstructor(Class<?>... parameterTypes) 返回任意指定的构造器
+
+获取类的成员变量 
+成员变量用Field类进行封装，主要的方法非常的类似：
+public Field getDeclaredField(String name) 获取任意指定名字的成员
+public Field[] getDeclaredFields() 获取所有的成员变量
+public Field getField(String name) 获取任意public成员变量
+public Field[] getFields() 获取所有的public成员变量
+
+获取类的方法 
+public Method[] getMethods() 获取所有的共有方法的集合
+public Method getMethod(String name,Class<?>... parameterTypes) 获取指定公有方法 参数1：方法名 参数2：参数类型集合 
+public Method[] getDeclaredMethods() 获取所有的方法
+public Method getDeclaredMethod(String name,Class
+五、反射应用
+1)动态创建组装对象
+
+2)动态执行方法
+
+
+
+

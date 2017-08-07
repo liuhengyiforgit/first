@@ -1,0 +1,9 @@
+﻿定义关键字：interface
+实现关键字：implements
+接口之间可以像类一样使用extends继承
+接口中所有方法自动属于public，但实现接口是必须把方法定义为public
+接口中绝不能含有实例域（属性）和静态方法（JavaSE8之后可以在接口中定义静态方法），在JavaSE8之前也不不能在接口中实现方法，接口中定义域会自动被设为 public static final
+JavaSE8后可以在接口中定义默认方法，必须用default修饰方法，但这些方法不能引用实例域，因为接口不能有实例域
+可以用instance来判断一个对象是否实现了某个接口
+一个类只能有一个父类，但却能实现多个接口
+javaSE8之前不能在接口里定义静态方法，通常都是采用伴随类的方法，比如collection/collections 或Path/Paths

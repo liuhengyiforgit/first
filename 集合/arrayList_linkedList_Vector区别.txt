@@ -1,0 +1,3 @@
+﻿arrayList和Vector都是采用数组的方式实现存储的，linkedList 是采用双向链表实现的；
+由于Vector 使用了synchronized方法，所以Vector是线程安全的，，但是也就造成Vector的性能要比arrayList差
+linkedList使用了双向链表实现数据存储，按序号索引需要进行前后遍历，但是插入数据只需要记录本项前后项，所以插入数据比较快。
